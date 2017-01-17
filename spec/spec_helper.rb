@@ -52,6 +52,7 @@ RSpec.configure do |config|
   # Helpers
 
   config.include FactoryGirl::Syntax::Methods
+  config.include Devise::Test::ControllerHelpers, type: :controller
 
   # Hooks
 

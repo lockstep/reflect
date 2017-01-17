@@ -2,7 +2,8 @@ class EmploymentsController < ApplicationController
 
   def create
     @employment_form = EmploymentForm.new(employment_params)
-    @employment_form.employ_user!
+    @employment = @employment_form.employ_user!
+    SlackUserIdentifier.perform_in(1.second, @employment.id)
     redirect_back(fallback_location: root_path)
   end
 

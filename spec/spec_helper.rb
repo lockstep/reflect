@@ -61,6 +61,10 @@ RSpec.configure do |config|
   end
 
   config.before do |ex|
+    # Clear sidekiq
+    Sidekiq::Worker.clear_all
+    Sidekiq::Testing.fake!
+
     # Set DatabaseCleaner strategy
     if ex.metadata[:db_strategy]
       DatabaseCleaner.strategy = ex.metadata[:db_strategy]
@@ -76,6 +80,10 @@ RSpec.configure do |config|
     Sidekiq::Testing.fake!
     # Ensure mailer queue is clear
     ActionMailer::Base.deliveries.clear
+  end
+
+  config.before do
+    stub_request(:any, /slack.com/).to_rack(FakeSlack)
   end
 
   config.append_after(:each) do

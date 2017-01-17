@@ -24,6 +24,7 @@ gem 'airbrake'
 gem 'rack-timeout'
 gem 'sidekiq'
 gem 'devise'
+gem 'rest-client'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -44,6 +45,7 @@ group :development, :test do
   gem 'byebug', platform: :mri
   gem 'rspec-rails', '~> 3.5'
   gem 'factory_girl_rails'
+  gem 'sinatra', github: 'sinatra'
 end
 
 group :test do

@@ -18,4 +18,12 @@ class Company < ApplicationRecord
       company: self, email: email, slack_handle: slack_handle, user: user
     )
   end
+
+  def slack_client
+    SlackWebApiClient.new(ENV['SLACK_TOKEN'])
+  end
+
+  def get_question_for(employment)
+    Question.first
+  end
 end

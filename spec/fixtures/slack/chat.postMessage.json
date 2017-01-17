@@ -1,0 +1,13 @@
+{
+  "ok": true,
+  "channel": "D02G5U1EC",
+  "ts": "1484666329.000003",
+  "message": {
+    "text": "test message",
+    "username": "Slack API Tester",
+    "bot_id": "B3D66SH5L",
+    "type": "message",
+    "subtype": "bot_message",
+    "ts": "1484666329.000003"
+  }
+}

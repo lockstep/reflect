@@ -14,4 +14,14 @@ class SlackWebApiClient
     })
     JSON.parse(res.body)['members']
   end
+
+  def send_message(slack_id, message)
+    RestClient.get("#{BASE_URI}/chat.postMessage", {
+      params: {
+        token: @slack_token,
+        channel: slack_id,
+        text: message
+      }
+    })
+  end
 end

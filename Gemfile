@@ -49,6 +49,7 @@ end
 group :test do
   gem 'webmock'
   gem 'database_cleaner'
+  gem 'capybara'
 end
 
 group :development do

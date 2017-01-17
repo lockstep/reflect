@@ -23,6 +23,7 @@ gem 'coffee-rails', '~> 4.2'
 gem 'airbrake'
 gem 'rack-timeout'
 gem 'sidekiq'
+gem 'devise'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'

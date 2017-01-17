@@ -1,4 +1,4 @@
-<%= @company.name %> Employees
+<h1><%= @company.name %> Employees</h1>
 
 <ul>
   <% @company.employments.each do |employment| %>
@@ -13,4 +13,20 @@
   <%= f.label :slack_handle %>
   <%= f.text_field :slack_handle %>
   <%= f.submit 'Add Employee' %>
+<% end %>
+
+<hr />
+
+<h1>Questions</h1>
+
+<ul>
+  <% @company.questions.each do |question| %>
+    <li><%= question.text %></li>
+<% end %>
+</ul>
+
+<%= form_for [ @company, Question.new ] do |f| %>
+  <%= f.label :text %>
+  <%= f.text_area :text %>
+  <%= f.submit 'Add Question' %>
 <% end %>

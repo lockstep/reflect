@@ -1,1 +1,16 @@
 <%= @company.name %> Employees
+
+<ul>
+  <% @company.employments.each do |employment| %>
+    <li><%= employment.email %> | <%= employment.slack_handle %></li>
+  <% end %>
+</ul>
+
+<%= form_for EmploymentForm.new, url: url_for(controller: :employments, action: :create) do |f| %>
+  <%= f.hidden_field :company_id, value: @company.id %>
+  <%= f.label :email %>
+  <%= f.email_field :email %>
+  <%= f.label :slack_handle %>
+  <%= f.text_field :slack_handle %>
+  <%= f.submit 'Add Employee' %>
+<% end %>

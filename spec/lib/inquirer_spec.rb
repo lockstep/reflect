@@ -18,7 +18,10 @@ describe Inquirer do
         end
       end
       context 'the employee does not yet have a slack id' do
-
+        it 'does not trigger question' do
+          expect(SlackWebApiClient).not_to receive(:new)
+          Inquirer.new(@company).question!
+        end
       end
     end
   end

@@ -1,0 +1,2 @@
+#!/bin/sh
+HEROKU_APP=reflect-production HKAPP=reflect-production exec "${HEROKU_COMMAND:-heroku}" "$@"

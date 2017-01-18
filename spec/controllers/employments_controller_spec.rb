@@ -1,6 +1,7 @@
 describe EmploymentsController do
   describe '#create' do
-    context 'company exists' do
+    # In new slack-only flow this is deprecated
+    xcontext 'company exists' do
       before do
         @company = create(:company)
       end

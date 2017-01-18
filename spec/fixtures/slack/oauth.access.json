@@ -1,0 +1,10 @@
+{
+  "access_token": "teamaccess123",
+  "scope": "incoming-webhook,commands,bot",
+  "team_name": "Test Team",
+  "team_id": "team123",
+  "bot":{
+    "bot_user_id":"bot123",
+    "bot_access_token":"botaccess123"
+  }
+}

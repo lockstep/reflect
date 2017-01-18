@@ -10,10 +10,12 @@ describe Inquirer do
         @question = create(:question, text: 'my q', company: @company)
       end
       context 'the employee has a slack id' do
-        before { @employment.update(slack_id: 'MYID') }
+        before do
+          @employment.update(slack_id: 'MYID', slack_dm_channel_id: 'dmid')
+        end
         it 'sends the employee the question via slack' do
           expect_any_instance_of(SlackWebApiClient).to receive(:send_message)
-            .with('MYID', 'my q').and_call_original
+            .with(@employment, 'my q').and_call_original
           Inquirer.new(@company).question!
         end
       end

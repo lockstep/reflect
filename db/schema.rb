@@ -10,26 +10,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170117141340) do
+ActiveRecord::Schema.define(version: 20170122033851) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "companies", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.string   "slack_id"
+    t.text     "slack_access_token"
+    t.string   "slack_bot_user_id"
+    t.text     "slack_bot_access_token"
   end
 
   create_table "employments", force: :cascade do |t|
     t.integer  "company_id"
     t.integer  "user_id"
     t.string   "role"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.string   "email"
     t.string   "slack_handle"
     t.string   "slack_id"
+    t.boolean  "archived",            default: false
+    t.string   "slack_dm_channel_id"
     t.index ["company_id"], name: "index_employments_on_company_id", using: :btree
     t.index ["user_id"], name: "index_employments_on_user_id", using: :btree
   end

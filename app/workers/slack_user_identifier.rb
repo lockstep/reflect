@@ -1,19 +1,17 @@
 class SlackUserIdentifier
   include Sidekiq::Worker
 
-  def perform(employment_id)
-    employment = Employment.find(employment_id)
-    slack_id = get_slack_user_id(employment)
-    employment.update(slack_id: slack_id)
+  def perform(company_id)
+    @company = Company.find(company_id)
+    create_or_update_employees!
   end
 
   private
 
-  def get_slack_user_id(employment)
-    slack_handle = employment.slack_handle
-    slack_client = employment.slack_client
-    users_data = slack_client.users_list
-    matching_data = users_data.detect { |data| data["name"] == slack_handle }
-    matching_data["id"]
+  def create_or_update_employees!
+    users_data = @company.bot_client.users_list
+    users_data.each do |user_data|
+      SlackUserBuilder.new(@company, user_data).create_or_update!
+    end
   end
 end

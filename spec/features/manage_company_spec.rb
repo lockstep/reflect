@@ -1,4 +1,4 @@
-feature 'Manage Company' do
+xfeature 'Manage Company' do
   background do
     @user = create(:user)
   end

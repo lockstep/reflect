@@ -1,4 +1,4 @@
-feature 'Manage Questions' do
+xfeature 'Manage Questions' do
   background do
     @user = create(:user)
   end

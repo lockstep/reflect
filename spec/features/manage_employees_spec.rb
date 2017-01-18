@@ -3,7 +3,8 @@ feature 'Manage Employees' do
     @user = create(:user)
   end
 
-  context 'user is signed in' do
+  # NOTE: For now employees are managed via the lack integration
+  xcontext 'user is signed in' do
     include_context 'logged in user'
     context 'user is company admin' do
       background do

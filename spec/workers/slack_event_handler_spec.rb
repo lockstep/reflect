@@ -20,6 +20,14 @@ describe SlackEventHandler do
           .with(@employment, "Received: Hello").and_call_original
         SlackEventHandler.new.perform(message_event)
       end
+      context 'bot message' do
+        it 'aborts' do
+          expect(SlackWebApiClient).not_to receive(:new)
+          params = message_event
+          params['event']['subtype'] = 'bot_message'
+          SlackEventHandler.new.perform(params)
+        end
+      end
     end
   end
 

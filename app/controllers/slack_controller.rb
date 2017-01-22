@@ -14,7 +14,11 @@ class SlackController < ApplicationController
     if params[:type] == 'url_verification'
       render json: { challenge: params[:challenge] }
     else
-      SlackEventHandler.perform_async(params)
+      polished_params = params.to_hash.symbolize_keys
+      polished_params[:event] = polished_params[:event].symbolize_keys
+      polished_params.delete(:controller)
+      polished_params.delete(:action)
+      SlackEventHandler.perform_async(polished_params)
       head :ok
     end
   end

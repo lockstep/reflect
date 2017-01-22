@@ -21,8 +21,7 @@ describe SlackController, type: :request do
         )
       end
       it 'validates and handles the message' do
-        expect(SlackEventHandler).to receive(:perform_async)
-        post '/slack/events', params: {
+        params_hash = {
           "token": "test_token",
           "team_id": "CO1",
           "api_app_id": "A1",
@@ -39,6 +38,8 @@ describe SlackController, type: :request do
             "U061F7AUR"
           ]
         }
+        expect(SlackEventHandler).to receive(:perform_async).with(params_hash)
+        post '/slack/events', params: params_hash
         expect(response.code).to eq "200"
       end
     end

@@ -1,4 +1,18 @@
 describe SlackController, type: :request do
+
+  describe 'POST /slack/events' do
+    context 'challenge request' do
+      it 'sends the appropriate response' do
+        post '/slack/events', params: {
+          "token": "Jhj5dZrVaK7ZwHHjRyZWjbDl",
+          "challenge": "3eZb",
+          "type": "url_verification"
+        }
+        expect(response.body).to eq({ challenge: '3eZb' }.to_json)
+      end
+    end
+  end
+
   describe 'GET /slack/oauth' do
     context 'a successful request' do
       context 'no previous company' do

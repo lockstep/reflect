@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   # resources :employments, only: [ :create ]
 
   get 'slack/oauth', to: 'slack#oauth'
+  post 'slack/events', to: 'slack#events'
 
   root to: "static#home"
 end

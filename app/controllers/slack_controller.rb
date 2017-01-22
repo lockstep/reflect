@@ -1,10 +1,19 @@
 class SlackController < ApplicationController
+
   def oauth
     if code = params[:code]
       create_or_update_company(code)
       redirect_to root_path, notice: 'Slack integration complete!'
     else
       redirect_to root_path, alert: 'Slack authentication failed.'
+    end
+  end
+
+  def events
+    if params[:type] == 'url_verification'
+      render json: { challenge: params[:challenge] }
+    else
+      head :ok
     end
   end
 

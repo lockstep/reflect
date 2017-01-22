@@ -29,7 +29,7 @@ describe SlackController, type: :request do
             "type": "message",
             "channel": "C1",
             "user": "U1",
-            "text": "Hello world",
+            "text": "Hello",
             "ts": "1355517523.000005"
           },
           "event_ts": "1465244570.336841",
@@ -38,8 +38,10 @@ describe SlackController, type: :request do
             "U061F7AUR"
           ]
         }
-        expect(SlackEventHandler).to receive(:perform_async).with(params_hash)
+        expect_any_instance_of(SlackWebApiClient).to receive(:send_message)
+          .with(@employment, "Received: Hello")
         post '/slack/events', params: params_hash
+        SlackEventHandler.drain
         expect(response.code).to eq "200"
       end
     end

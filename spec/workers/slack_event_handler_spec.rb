@@ -42,6 +42,6 @@ describe SlackEventHandler do
       "authed_users": [
         "U061F7AUR"
       ]
-    }
+    }.deep_stringify_keys
   end
 end

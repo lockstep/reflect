@@ -14,6 +14,7 @@ class SlackController < ApplicationController
     if params[:type] == 'url_verification'
       render json: { challenge: params[:challenge] }
     else
+      SlackEventHandler.perform_async(params)
       head :ok
     end
   end

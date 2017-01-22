@@ -11,6 +11,37 @@ describe SlackController, type: :request do
         expect(response.body).to eq({ challenge: '3eZb' }.to_json)
       end
     end
+    context 'a message was posted from a known user' do
+      before do
+        @user = create(:user)
+        @company = create(:company, slack_id: 'CO1')
+        @employment = create(
+          :employment, company: @company, user: @user,
+          slack_dm_channel_id: 'C1', slack_id: 'U1'
+        )
+      end
+      it 'validates and handles the message' do
+        expect(SlackEventHandler).to receive(:perform_async)
+        post '/slack/events', params: {
+          "token": "test_token",
+          "team_id": "CO1",
+          "api_app_id": "A1",
+          "event": {
+            "type": "message",
+            "channel": "C1",
+            "user": "U1",
+            "text": "Hello world",
+            "ts": "1355517523.000005"
+          },
+          "event_ts": "1465244570.336841",
+          "type": "event_callback",
+          "authed_users": [
+            "U061F7AUR"
+          ]
+        }
+        expect(response.code).to eq "200"
+      end
+    end
   end
 
   describe 'GET /slack/oauth' do

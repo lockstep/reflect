@@ -8,7 +8,7 @@ class Inquirer
     @company.employments.find_each do |employment|
       next if employment.slack_id.blank?
       question = @company.get_question_for(employment)
-      @company.bot_client.send_message(employment, question.text)
+      employment.send_message(question.text)
     end
   end
 

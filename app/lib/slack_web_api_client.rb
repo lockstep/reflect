@@ -40,8 +40,6 @@ class SlackWebApiClient
   end
 
   def send_message(employment, message)
-    # TEMP: Limit messaging to hiattp
-    return unless employment.slack_handle == 'hiattp'
     RestClient.get("#{BASE_URI}/chat.postMessage", {
       params: {
         token: @slack_token,

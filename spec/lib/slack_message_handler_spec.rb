@@ -12,6 +12,7 @@ describe SlackMessageHandler do
         it 'creates a question for the company' do
           question = @company.questions.first
           expect(question.text).to eq 'Whats up?'
+          expect(@employment.responses.count).to eq 0
         end
       end
     end
@@ -26,7 +27,13 @@ describe SlackMessageHandler do
     end
   end
   context 'non-action (response)' do
-    
+    context 'hey there' do
+      before { execute_message('hey there') }
+      it 'records the response' do
+        response = @employment.responses.first
+        expect(response.text).to eq 'hey there'
+      end
+    end
   end
 
   private

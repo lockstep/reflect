@@ -3,6 +3,7 @@ class Employment < ApplicationRecord
   has_many :questions, through: :company
   belongs_to :user
   has_many :inquiries
+  has_many :responses
   delegate :bot_client, to: :company
 
   def admin?

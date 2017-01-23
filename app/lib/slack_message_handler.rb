@@ -6,8 +6,8 @@ class SlackMessageHandler
   end
 
   def process!
-    process_action
-    # process_response
+    return if process_action
+    process_response
   end
 
   private
@@ -19,5 +19,9 @@ class SlackMessageHandler
       question = @message.split(':').last.strip
       @company.questions.create(text: question)
     end
+  end
+
+  def process_response
+    @employment.responses.create(text: @message)
   end
 end

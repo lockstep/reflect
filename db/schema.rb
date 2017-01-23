@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170122033851) do
+ActiveRecord::Schema.define(version: 20170123125420) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 20170122033851) do
     t.string   "slack_id"
     t.boolean  "archived",            default: false
     t.string   "slack_dm_channel_id"
+    t.string   "time_zone"
     t.index ["company_id"], name: "index_employments_on_company_id", using: :btree
     t.index ["user_id"], name: "index_employments_on_user_id", using: :btree
   end

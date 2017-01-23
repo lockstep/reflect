@@ -63,6 +63,7 @@ describe SlackController, type: :request do
           admin = company.employments.find_by(slack_id: 'U13J5O0C9')
           non_admin = company.employments.find_by(slack_id: 'U04S4SE3G')
           expect(admin).to be_present
+          expect(admin.time_zone).to eq 'Asia/Bangkok'
           expect(admin.slack_dm_channel_id).to eq 'D024BFF1M'
           expect(admin.role).to eq 'admin'
           expect(non_admin.role).to be_blank

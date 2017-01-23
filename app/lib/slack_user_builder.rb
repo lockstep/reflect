@@ -24,6 +24,7 @@ class SlackUserBuilder
       slack_handle: @user_data['name'],
       slack_id: @user_data['id'],
       archived: user_archived_or_restricted?,
+      time_zone: @user_data['tz'],
       # Seems like this is redundant with the user record in latest
       # implementation.
       email: @user_data['profile']['email']

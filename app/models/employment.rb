@@ -5,6 +5,10 @@ class Employment < ApplicationRecord
   has_many :inquiries
   delegate :bot_client, to: :company
 
+  def admin?
+    role == 'admin'
+  end
+
   def send_message(message)
     bot_client.send_message(self, message)
   end

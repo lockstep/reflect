@@ -4,11 +4,15 @@ class Inquirer
     @company = company
   end
 
-  def question!
+  def inquire!
     @company.employments.find_each do |employment|
-      next if employment.slack_id.blank?
-      question = @company.get_question_for(employment)
+      latest_inquiry = Inquiry.where(employment: employment).undelivered
+        .order(to_be_delivered_at: :asc).last
+      next unless latest_inquiry
+      next if latest_inquiry.to_be_delivered_at > Time.now
+      question = latest_inquiry.question
       employment.send_message(question.text)
+      latest_inquiry.update(delivered_at: Time.now)
     end
   end
 

@@ -3,7 +3,7 @@ class InquisitionInitiator
 
   def perform
     Company.find_each do |company|
-      Inquirer.new(company).question!
+      Inquirer.new(company).inquire!
     end
   end
 end

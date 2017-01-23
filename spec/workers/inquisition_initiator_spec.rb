@@ -4,7 +4,7 @@ describe InquisitionInitiator do
   end
   it 'spawns inquirers for all companies' do
     expect(Inquirer).to receive(:new).with(@company).and_call_original
-    expect_any_instance_of(Inquirer).to receive(:question!)
+    expect_any_instance_of(Inquirer).to receive(:inquire!)
     InquisitionInitiator.new.perform
   end
 end

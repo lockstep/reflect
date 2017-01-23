@@ -38,8 +38,9 @@ describe SlackController, type: :request do
             "U061F7AUR"
           ]
         }
-        expect_any_instance_of(SlackWebApiClient).to receive(:send_message)
-          .with(@employment, "Received: Hello")
+        expect(SlackMessageHandler).to receive(:new)
+          .with(company: @company, employment: @employment, message: "Hello")
+          .and_call_original
         post '/slack/events', params: params_hash
         SlackEventHandler.drain
         expect(response.code).to eq "200"

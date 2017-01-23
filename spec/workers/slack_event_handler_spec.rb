@@ -1,7 +1,7 @@
 describe SlackEventHandler do
   context 'invalid request' do
     it 'exits' do
-      expect(SlackWebApiClient).not_to receive(:new)
+      expect(SlackMessageHandler).not_to receive(:new)
       SlackEventHandler.new.perform(message_event(token: 'wrong'))
     end
   end
@@ -16,16 +16,14 @@ describe SlackEventHandler do
         )
       end
       it 'pings the user with received message' do
-        expect_any_instance_of(SlackWebApiClient).to receive(:send_message)
-          .with(@employment, "Received: Hello").and_call_original
+        expect_any_instance_of(SlackMessageHandler).to receive(:process!)
         SlackEventHandler.new.perform(message_event)
       end
       context 'bot message' do
         it 'aborts' do
-          expect(SlackWebApiClient).not_to receive(:new)
+          expect(SlackMessageHandler).not_to receive(:new)
           params = message_event
           params['event']['subtype'] = 'bot_message'
-          SlackEventHandler.new.perform(params)
         end
       end
     end

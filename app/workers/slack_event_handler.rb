@@ -7,6 +7,8 @@ class SlackEventHandler
     return if event['type'] != 'message' || event['subtype'] == 'bot_message'
     company = Company.find_by(slack_id: event_params['team_id'])
     employment = company.employments.find_by(slack_id: event['user'])
-    employment.send_message("Received: #{event['text']}")
+    SlackMessageHandler.new(
+      company: company, employment: employment, message: event['text']
+    ).process!
   end
 end

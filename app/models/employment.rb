@@ -40,7 +40,7 @@ class Employment < ApplicationRecord
         work_hours_from_now % schedulable_hours_in_day == 0
       work_days_to_advance -= 1
     end
-    optimal_time.advance(days: work_days_to_advance)
+    optimal_time = optimal_time.advance(days: work_days_to_advance)
     optimal_time.advance(hours: work_hours_from_now % schedulable_hours_in_day)
   end
 

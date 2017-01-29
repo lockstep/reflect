@@ -20,6 +20,7 @@ class SlackMessageHandler
       @company.questions.create(text: question)
     when /announce:/
       announcement_text = @message.split(':').last.strip
+      @company.announcements.create(text: announcement_text)
       @company.employments.each { |e| e.send_message(announcement_text) }
     end
   end

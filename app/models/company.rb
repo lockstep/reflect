@@ -2,6 +2,7 @@ class Company < ApplicationRecord
 
   has_many :employments, -> { where(archived: false) }
   has_many :questions
+  has_many :announcements
 
   def add_admin(user)
     Employment.create(

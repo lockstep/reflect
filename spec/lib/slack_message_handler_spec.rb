@@ -31,6 +31,8 @@ describe SlackMessageHandler do
           expect(client_double).to receive(:send_message)
             .with(@another_employment, 'Hey there')
           execute_message('announce: Hey there')
+          expect(@company.announcements.count).to eq 1
+          expect(@company.announcements.first.text).to eq 'Hey there'
         end
       end
     end

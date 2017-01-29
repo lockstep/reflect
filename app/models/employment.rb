@@ -3,6 +3,7 @@ class Employment < ApplicationRecord
   has_many :questions, through: :company
   belongs_to :user
   has_many :inquiries
+  has_many :asked_questions, through: :inquiries, source: :question
   has_many :responses
   delegate :bot_client, to: :company
 
@@ -26,7 +27,8 @@ class Employment < ApplicationRecord
   end
 
   def optimal_question
-    questions.order("RANDOM()").first
+    asked_question_ids = asked_questions.pluck(:id)
+    questions.where.not(id: asked_question_ids).order("RANDOM()").first
   end
 
   def optimal_time_for_inquiry

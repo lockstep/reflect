@@ -15,6 +15,24 @@ describe SlackMessageHandler do
           expect(@employment.responses.count).to eq 0
         end
       end
+      context 'announce: Hey there' do
+        before do
+          @another_user = create(:user)
+          @another_employment = create(
+            :employment, user: @another_user, company: @company
+          )
+        end
+        it 'sends message to all users via reflect bot' do
+          client_double = double('SlackWebApiClient')
+          expect(SlackWebApiClient)
+            .to receive(:new).twice.and_return(client_double)
+          expect(client_double).to receive(:send_message)
+            .with(@employment, 'Hey there')
+          expect(client_double).to receive(:send_message)
+            .with(@another_employment, 'Hey there')
+          execute_message('announce: Hey there')
+        end
+      end
     end
     context 'user is not an admin' do
       before { @employment.update(role: nil) }
